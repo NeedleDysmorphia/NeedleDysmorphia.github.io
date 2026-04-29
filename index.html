@@ -1,3 +1,10 @@
+È possibile che il "cuore" non fosse visibile perché, essendo generato solo da ombre e sfumature scure su sfondo nero, risultasse troppo cupo per essere percepito su alcuni schermi.
+
+Ho riscritto il codice rendendo la massa organica più definita, aumentando l'opacità e aggiungendo un bagliore rosso (glow) che si espande durante il battito. In questo modo, anche se lo sfondo è nero, vedrai chiaramente la sagoma "carnosa" che pulsa.
+
+Ecco il codice aggiornato e corazzato. Copia tutto in index.html:
+HTML
+
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -12,65 +19,65 @@
             color: #b0b0b0;
             font-family: 'Courier New', Courier, monospace;
             overflow-x: hidden;
+            height: 100vh;
         }
 
-        /* IL CUORE ANATOMICO GENERATO DA CODICE */
+        /* CONTENITORE DEL CUORE - Ora più visibile */
         #heart-container {
             position: fixed;
             top: 50%; left: 50%;
             transform: translate(-50%, -50%);
-            z-index: -1;
+            z-index: 1; /* Portato più avanti per sicurezza */
             pointer-events: none;
-            opacity: 0.25;
-            animation: organic-pulse 1.3s infinite ease-in-out;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        /* Massa principale - asimmetrica e profonda */
+        /* MASSA ORGANICA ASIMMETRICA */
         .organ {
             position: relative;
-            width: 160px;
-            height: 200px;
-            background: #4a0000;
-            /* Forma irregolare "a sacco" */
-            border-radius: 42% 58% 46% 54% / 61% 41% 59% 39%;
+            width: 180px;
+            height: 240px;
+            background: #5a0000; /* Rosso più acceso per visibilità */
+            border-radius: 40% 60% 45% 55% / 60% 45% 55% 40%; /* Forma "brutta" e umana */
             box-shadow: 
-                inset 20px -30px 50px #1a0000,
-                inset -10px 10px 30px #8b0000,
-                0 0 60px #2a0000;
-            filter: blur(1px);
+                inset 10px -20px 40px #000,
+                inset -5px 5px 20px #ff000033,
+                0 0 80px #8b0000; /* Bagliore esterno */
+            animation: organic-pulse 1.2s infinite ease-in-out;
+            opacity: 0.6; /* Aumentata l'opacità */
         }
 
-        /* Vena Aorta (tubo superiore) */
-        .vessel-top {
+        /* VENE/ARTERIE */
+        .vessel {
             position: absolute;
-            top: -30px; left: 40px;
-            width: 35px; height: 80px;
-            background: #330000;
-            border-radius: 10px 10px 0 0;
-            transform: rotate(-10deg);
+            background: #400;
             box-shadow: inset -5px 0 10px #000;
         }
-
-        /* Altra vena laterale */
-        .vessel-side {
-            position: absolute;
-            top: 10px; right: -20px;
-            width: 25px; height: 60px;
-            background: #3a0000;
+        .aorta {
+            width: 40px; height: 100px;
+            top: -40px; left: 50px;
+            border-radius: 20px 20px 0 0;
+            transform: rotate(-5deg);
+        }
+        .vena {
+            width: 30px; height: 80px;
+            top: 10px; right: -15px;
             border-radius: 50%;
-            transform: rotate(45deg);
-            box-shadow: inset 5px 0 10px #000;
+            transform: rotate(35deg);
         }
 
+        /* ANIMAZIONE BATTITO CON CAMBIO LUMINOSITÀ */
         @keyframes organic-pulse {
-            0% { transform: translate(-50%, -50%) scale(1); filter: brightness(1); }
-            10% { transform: translate(-50%, -50%) scale(1.08) rotate(1deg); filter: brightness(1.3); }
-            30% { transform: translate(-50%, -50%) scale(1.02); filter: brightness(1.1); }
-            45% { transform: translate(-50%, -50%) scale(1.12) rotate(-1deg); filter: brightness(1.4); }
-            100% { transform: translate(-50%, -50%) scale(1); filter: brightness(1); }
+            0% { transform: scale(1); filter: brightness(0.8) blur(0px); }
+            15% { transform: scale(1.15); filter: brightness(1.4) blur(1px); box-shadow: 0 0 120px #ff000066; }
+            30% { transform: scale(1.05); filter: brightness(1.1); }
+            45% { transform: scale(1.2); filter: brightness(1.5) blur(1px); box-shadow: 0 0 140px #ff000088; }
+            100% { transform: scale(1); filter: brightness(0.8) blur(0px); }
         }
 
-        /* OVERLAY E NAVIGAZIONE */
+        /* INTERFACCIA */
         nav {
             position: fixed;
             top: 0; width: 100%;
@@ -78,17 +85,10 @@
             padding: 25px; text-align: center;
             z-index: 1000; border-bottom: 1px solid #300;
         }
+        nav a { color: #8b0000; text-decoration: none; margin: 0 15px; text-transform: uppercase; letter-spacing: 3px; font-weight: bold; }
 
-        nav a {
-            color: #600; text-decoration: none; margin: 0 15px;
-            text-transform: uppercase; font-size: 0.8rem; letter-spacing: 3px;
-        }
-
-        section { padding: 140px 20px; min-height: 100vh; text-align: center; }
-
-        h1 { color: #8b0000; letter-spacing: 10px; margin-bottom: 50px; }
-
-        /* SCHERMO INIZIALE */
+        section { padding: 140px 20px; min-height: 100vh; position: relative; z-index: 10; text-align: center; }
+        
         #start {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -102,13 +102,14 @@
 
     <div id="start">
         <h2>ENTRA NELL'ABISSO</h2>
-        <p style="color: #333; margin-top: 10px;">(Attiva il battito)</p>
+        <p style="color: #444; margin-top: 10px; letter-spacing: 2px;">(Clicca per risvegliare l'organo)</p>
     </div>
 
     <div id="heart-container">
-        <div class="vessel-top"></div>
-        <div class="vessel-side"></div>
-        <div class="organ"></div>
+        <div class="organ">
+            <div class="vessel aorta"></div>
+            <div class="vessel vena"></div>
+        </div>
     </div>
 
     <nav>
@@ -118,8 +119,8 @@
     </nav>
 
     <section id="home">
-        <h1>NOME ARTISTA</h1>
-        <p>Arte Viscerale</p>
+        <h1 style="color:#8b0000; font-size: 3rem; letter-spacing: 15px;">NOME ARTISTA</h1>
+        <p style="background: rgba(0,0,0,0.7); display: inline-block; padding: 10px;">Visioni Anatomiche Astratte</p>
     </section>
 
     <script>
@@ -132,20 +133,21 @@
                 const gain = audioCtx.createGain();
                 osc.type = 'sine';
                 osc.frequency.setValueAtTime(freq, time);
-                osc.frequency.exponentialRampToValueAtTime(0.01, time + 0.4);
+                osc.frequency.exponentialRampToValueAtTime(0.01, time + 0.5);
                 gain.gain.setValueAtTime(vol, time);
-                gain.gain.exponentialRampToValueAtTime(0.01, time + 0.4);
+                gain.gain.exponentialRampToValueAtTime(0.01, time + 0.5);
                 osc.connect(gain); gain.connect(audioCtx.destination);
-                osc.start(time); osc.stop(time + 0.4);
+                osc.start(time); osc.stop(time + 0.5);
             };
-            stroke(now, 50, 0.6);      // Batte cupo
-            stroke(now + 0.22, 40, 0.4); 
+            // Doppio battito cupo
+            stroke(now, 55, 0.8);
+            stroke(now + 0.25, 45, 0.6); 
         }
 
         document.getElementById('start').addEventListener('click', function() {
             this.style.display = 'none';
             playBeat();
-            setInterval(playBeat, 1300);
+            setInterval(playBeat, 1200);
         });
     </script>
 
