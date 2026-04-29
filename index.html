@@ -62,18 +62,26 @@
         nav a {
             color: #000000; /* Testo nero su fondo bianco */
             text-decoration: none;
-            margin: 0 20px;
+            margin: 0;
+            padding: 0 20px;
             text-transform: uppercase;
             letter-spacing: 4px;
             font-weight: bold;
             font-size: 1.0rem;
             transition: 0.3s;
+            border-right: 1px solid #ddd;
         }
-
+        nav a:last-child {
+            border-right: none;
+        }
         nav a:hover {
             color: #8b0000; /* Diventa rosso al passaggio del mouse */
         }
-
+        nav span {
+            color:#8b0000;
+            font-weight: normal;
+            opacity: 0.5;
+        }
         /* SECTIONS */
         section {
             padding-top: 100px;
@@ -155,9 +163,9 @@
     </div>
 
     <nav>
-        <a href="#home">Home</a>
-        <a href="#opere">ART</a>
-        <a href="#poesie">POETRY</a>
+        <a href="#home">Home</a> <span>/</span>
+        <a href="#opere">ART</a> <span>/</span>
+        <a href="#poesie">POETRY</a> <span>/</span>
         <a href="#bio">BIO</a>
     </nav>
 
