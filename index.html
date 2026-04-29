@@ -5,6 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>THEY FED ME LIES; I GAVE THEM ART | Gallery</title>
     <style>
+        .side-band-left, .side-band-right {
+    position: fixed;
+    top: 0;
+    width: 8px; /* Spessore della banda */
+    height: 100vh;
+    background-color: #8b0000; /* Il tuo rosso sangue */
+    z-index: 998; /* Sotto il menu e lo start screen, ma sopra le sezioni */
+    box-shadow: 0 0 15px rgba(139, 0, 0, 0.6); /* Effetto alone rosso */
+}
+
+.side-band-left {
+    left: 0;
+}
+
+.side-band-right {
+    right: 0;
+}
         /* RESET BASE */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
@@ -124,7 +141,8 @@
     </style>
 </head>
 <body>
-
+    <div class="side-band-left"></div>
+    <div class="side-band-right"></div>
     <div id="start-screen">
         <h2 class="pulsate">ENTER THE GALLERY</h2>
         <p style="color: #222; margin-top: 20px; letter-spacing: 3px; font-size: 0.7rem;">(AWAIT THE HEARTBEAT)</p>
