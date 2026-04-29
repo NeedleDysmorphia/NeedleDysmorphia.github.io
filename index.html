@@ -3,30 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NOME ARTISTA | Battito Astratto</title>
+    <title>NOME ARTISTA | Abisso Astratto</title>
     <style>
-        /* RESET E STILE BASE */
+        /* RESET BASE */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
             background-color: #000;
-            color: #b0b0b0;
+            color: #888;
             font-family: 'Courier New', Courier, monospace;
             overflow-x: hidden;
             height: 100vh;
         }
 
-        /* ANIMAZIONE DI PULSAZIONE PER IL TESTO */
-        @keyframes text-beat {
+        /* ANIMAZIONE BATTITO PER IL TESTO */
+        @keyframes text-pulse {
             0% { transform: scale(1); filter: brightness(1); }
-            10% { transform: scale(1.02); filter: brightness(1.5) drop-shadow(0 0 5px #8b0000); }
+            10% { transform: scale(1.03); filter: brightness(1.8) drop-shadow(0 0 8px #8b0000); }
             20% { transform: scale(1); filter: brightness(1.2); }
-            30% { transform: scale(1.05); filter: brightness(1.8) drop-shadow(0 0 10px #ff0000); }
+            30% { transform: scale(1.06); filter: brightness(2) drop-shadow(0 0 12px #ff0000); }
             100% { transform: scale(1); filter: brightness(1); }
         }
 
-        .beat-effect {
-            animation: text-beat 1.2s infinite ease-in-out;
+        .pulsate {
+            animation: text-pulse 1.3s infinite ease-in-out;
             display: inline-block;
         }
 
@@ -34,23 +34,24 @@
         nav {
             position: fixed;
             top: 0; width: 100%;
-            background: rgba(0, 0, 0, 0.95);
+            background: rgba(0, 0, 0, 0.9);
             padding: 25px; text-align: center;
             z-index: 1000;
-            border-bottom: 1px solid #300;
+            border-bottom: 1px solid #200;
         }
 
         nav a {
-            color: #440000;
+            color: #400;
             text-decoration: none;
-            margin: 0 15px;
+            margin: 0 20px;
             text-transform: uppercase;
-            letter-spacing: 3px;
+            letter-spacing: 4px;
+            font-size: 0.8rem;
             font-weight: bold;
-            transition: color 0.3s;
+            transition: color 0.4s;
         }
 
-        nav a:hover { color: #ff0000; }
+        nav a:hover { color: #8b0000; }
 
         /* SEZIONI */
         section {
@@ -65,16 +66,16 @@
 
         h1 {
             color: #8b0000;
-            font-size: clamp(2rem, 8vw, 4rem);
-            letter-spacing: 15px;
+            font-size: clamp(2.5rem, 10vw, 5rem);
+            letter-spacing: 20px;
             text-transform: uppercase;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
 
         h2 {
-            color: #600;
-            letter-spacing: 8px;
-            margin-bottom: 30px;
+            color: #500;
+            letter-spacing: 10px;
+            margin-bottom: 40px;
             text-transform: uppercase;
         }
 
@@ -83,12 +84,11 @@
             line-height: 2.2;
             white-space: pre-line;
             font-style: italic;
-            border-left: 1px solid #300;
-            padding-left: 20px;
-            margin: 20px 0;
+            color: #666;
+            padding: 30px;
         }
 
-        /* SCHERMO DI INGRESSO */
+        /* SCHERMO INIZIALE */
         #start-screen {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -100,21 +100,19 @@
             align-items: center;
             z-index: 2000;
             cursor: pointer;
-            text-align: center;
         }
 
-        /* GALLERIA MINI */
         .grid-opere {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
             width: 100%;
-            max-width: 1000px;
+            max-width: 1100px;
         }
 
-        .opera-box {
-            border: 1px solid #200;
-            padding: 20px;
+        .box-opera {
+            border: 1px solid #111;
+            padding: 40px;
             background: #050505;
         }
 
@@ -123,39 +121,44 @@
 <body>
 
     <div id="start-screen">
-        <h2 class="beat-effect">ENTRA NELL'ABISSO</h2>
-        <p style="color: #333; margin-top: 15px; letter-spacing: 2px;">(Clicca per risvegliare il battito)</p>
+        <h2 class="pulsate">ENTRA NELL'ABISSO</h2>
+        <p style="color: #222; margin-top: 20px; letter-spacing: 3px; font-size: 0.7rem;">(Attiva la frequenza)</p>
     </div>
 
     <nav>
         <a href="#home">Ingresso</a>
         <a href="#opere">Abissi</a>
         <a href="#poesie">Echi</a>
+        <a href="#bio">Ombra</a>
     </nav>
 
     <section id="home">
-        <h1 class="beat-effect">NOME ARTISTA</h1>
-        <p style="letter-spacing: 5px; color: #444;">Arte Viscerale Astratta</p>
+        <h1 class="pulsate">NOME ARTISTA</h1>
+        <p style="letter-spacing: 8px; color: #333; font-size: 0.9rem;">VISIONI ASTRATTE</p>
     </section>
 
     <section id="opere">
-        <h2 class="beat-effect">Abissi</h2>
+        <h2 class="pulsate">Abissi</h2>
         <div class="grid-opere">
-            <div class="opera-box">
+            <div class="box-opera">
                 <p>OPERA I</p>
-                <p style="color: #444; font-size: 0.8rem;">Disponibile</p>
+                <p style="color: #222; font-size: 0.7rem; margin-top: 10px;">CARNE E TELA</p>
             </div>
-        </div>
+            </div>
     </section>
 
     <section id="poesie">
-        <h2 class="beat-effect">Echi</h2>
+        <h2 class="pulsate">Echi</h2>
         <div class="testo-artistico">
-            "Il vuoto non è silenzio.
-            È un battito che non vedi,
-            ma che muove ogni ombra
-            sulla tela della tua mente."
+            Inserisci qui i tuoi versi.
+            Andando a capo, il sito 
+            manterrà la tua formattazione.
         </div>
+    </section>
+
+    <section id="bio">
+        <h2 class="pulsate">L'Ombra</h2>
+        <div class="testo-artistico">La tua biografia qui.</div>
     </section>
 
     <script>
@@ -179,15 +182,15 @@
                 osc.stop(time + dur);
             };
 
-            // Battito "Tum-Tum" sincronizzato con l'animazione 1.2s
-            stroke(now, 55, 0.7, 0.4);      // Primo battito
-            stroke(now + 0.25, 45, 0.5, 0.5); // Secondo battito
+            // Battito profondo sincronizzato (1.3s)
+            stroke(now, 50, 0.8, 0.4);      // Tum
+            stroke(now + 0.25, 40, 0.6, 0.5); // Tum
         }
 
         document.getElementById('start-screen').addEventListener('click', function() {
             this.style.display = 'none';
             playHeartbeat();
-            setInterval(playHeartbeat, 1200);
+            setInterval(playHeartbeat, 1300);
         });
     </script>
 
