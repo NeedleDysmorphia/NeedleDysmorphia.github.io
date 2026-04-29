@@ -45,7 +45,24 @@
             animation: text-pulse 1.3s infinite ease-in-out;
             display: inline-block;
         }
-
+        .background-overlay {
+            position: fixed; /* L'immagine sta ferma o si muove? Se vuoi che scorra via, usa 'absolute' */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2; /* Dietro a tutto, anche alle bande rosse */
+    
+            /* Inserisci qui l'URL della tua immagine */
+            background-image: url('tuo-sfondo.jpg'); 
+            background-size: cover;
+            background-position: center;
+            background-attachment: scroll; /* Questo fa sì che l'immagine scorra con la rotella */
+    
+            /* EFFETTO OMBRATO/SCURO */
+            filter: brightness(20%) contrast(120%) grayscale(50%);
+            opacity: 0.4; /* Regola questo per farla vedere più o meno */
+        }
         /* NAVIGATION */
         nav {
             position: fixed;
@@ -153,6 +170,7 @@
     </style>
 </head>
 <body>
+    <div class="background-overlay"></div>
     <div class="side-band-left"></div>
     <div class="side-band-right"></div>
     <div id="start-screen">
