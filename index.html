@@ -49,25 +49,30 @@
         /* NAVIGATION */
         nav {
             position: fixed;
-            top: 0; width: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            padding: 25px; text-align: center;
-            z-index: 1000;
-            border-bottom: 1px solid #200;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #ffffff; /* Banda bianca pulita */
+            padding: 15px 0;
+            text-align: center;
+            z-index: 1001; /* Sopra le bande laterali */
+            border-bottom: 2px solid #8b0000; /* Un filo di sangue alla base */
         }
 
         nav a {
-            color: #400;
+            color: #000000; /* Testo nero su fondo bianco */
             text-decoration: none;
             margin: 0 20px;
             text-transform: uppercase;
             letter-spacing: 4px;
-            font-size: 0.8rem;
             font-weight: bold;
-            transition: color 0.4s;
+            font-size: 0.8rem;
+            transition: 0.3s;
         }
 
-        nav a:hover { color: #8b0000; }
+        nav a:hover {
+            color: #8b0000; /* Diventa rosso al passaggio del mouse */
+        }
 
         /* SECTIONS */
         section {
