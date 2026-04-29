@@ -1,17 +1,11 @@
-È possibile che il "cuore" non fosse visibile perché, essendo generato solo da ombre e sfumature scure su sfondo nero, risultasse troppo cupo per essere percepito su alcuni schermi.
-
-Ho riscritto il codice rendendo la massa organica più definita, aumentando l'opacità e aggiungendo un bagliore rosso (glow) che si espande durante il battito. In questo modo, anche se lo sfondo è nero, vedrai chiaramente la sagoma "carnosa" che pulsa.
-
-Ecco il codice aggiornato e corazzato. Copia tutto in index.html:
-HTML
-
 <!DOCTYPE html>
 <html lang="it">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NOME ARTISTA | Abisso Viscerale</title>
+    <title>NOME ARTISTA | Battito Astratto</title>
     <style>
+        /* RESET E STILE BASE */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
@@ -22,94 +16,115 @@ HTML
             height: 100vh;
         }
 
-        /* CONTENITORE DEL CUORE - Ora più visibile */
-        #heart-container {
-            position: fixed;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 1; /* Portato più avanti per sicurezza */
-            pointer-events: none;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        /* ANIMAZIONE DI PULSAZIONE PER IL TESTO */
+        @keyframes text-beat {
+            0% { transform: scale(1); filter: brightness(1); }
+            10% { transform: scale(1.02); filter: brightness(1.5) drop-shadow(0 0 5px #8b0000); }
+            20% { transform: scale(1); filter: brightness(1.2); }
+            30% { transform: scale(1.05); filter: brightness(1.8) drop-shadow(0 0 10px #ff0000); }
+            100% { transform: scale(1); filter: brightness(1); }
         }
 
-        /* MASSA ORGANICA ASIMMETRICA */
-        .organ {
-            position: relative;
-            width: 180px;
-            height: 240px;
-            background: #5a0000; /* Rosso più acceso per visibilità */
-            border-radius: 40% 60% 45% 55% / 60% 45% 55% 40%; /* Forma "brutta" e umana */
-            box-shadow: 
-                inset 10px -20px 40px #000,
-                inset -5px 5px 20px #ff000033,
-                0 0 80px #8b0000; /* Bagliore esterno */
-            animation: organic-pulse 1.2s infinite ease-in-out;
-            opacity: 0.6; /* Aumentata l'opacità */
+        .beat-effect {
+            animation: text-beat 1.2s infinite ease-in-out;
+            display: inline-block;
         }
 
-        /* VENE/ARTERIE */
-        .vessel {
-            position: absolute;
-            background: #400;
-            box-shadow: inset -5px 0 10px #000;
-        }
-        .aorta {
-            width: 40px; height: 100px;
-            top: -40px; left: 50px;
-            border-radius: 20px 20px 0 0;
-            transform: rotate(-5deg);
-        }
-        .vena {
-            width: 30px; height: 80px;
-            top: 10px; right: -15px;
-            border-radius: 50%;
-            transform: rotate(35deg);
-        }
-
-        /* ANIMAZIONE BATTITO CON CAMBIO LUMINOSITÀ */
-        @keyframes organic-pulse {
-            0% { transform: scale(1); filter: brightness(0.8) blur(0px); }
-            15% { transform: scale(1.15); filter: brightness(1.4) blur(1px); box-shadow: 0 0 120px #ff000066; }
-            30% { transform: scale(1.05); filter: brightness(1.1); }
-            45% { transform: scale(1.2); filter: brightness(1.5) blur(1px); box-shadow: 0 0 140px #ff000088; }
-            100% { transform: scale(1); filter: brightness(0.8) blur(0px); }
-        }
-
-        /* INTERFACCIA */
+        /* NAVIGAZIONE */
         nav {
             position: fixed;
             top: 0; width: 100%;
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.95);
             padding: 25px; text-align: center;
-            z-index: 1000; border-bottom: 1px solid #300;
+            z-index: 1000;
+            border-bottom: 1px solid #300;
         }
-        nav a { color: #8b0000; text-decoration: none; margin: 0 15px; text-transform: uppercase; letter-spacing: 3px; font-weight: bold; }
 
-        section { padding: 140px 20px; min-height: 100vh; position: relative; z-index: 10; text-align: center; }
-        
-        #start {
+        nav a {
+            color: #440000;
+            text-decoration: none;
+            margin: 0 15px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        nav a:hover { color: #ff0000; }
+
+        /* SEZIONI */
+        section {
+            padding: 140px 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        h1 {
+            color: #8b0000;
+            font-size: clamp(2rem, 8vw, 4rem);
+            letter-spacing: 15px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: #600;
+            letter-spacing: 8px;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+        }
+
+        .testo-artistico {
+            max-width: 700px;
+            line-height: 2.2;
+            white-space: pre-line;
+            font-style: italic;
+            border-left: 1px solid #300;
+            padding-left: 20px;
+            margin: 20px 0;
+        }
+
+        /* SCHERMO DI INGRESSO */
+        #start-screen {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: #000; color: #8b0000;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            z-index: 2000; cursor: pointer;
+            background: #000;
+            color: #8b0000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            cursor: pointer;
+            text-align: center;
         }
+
+        /* GALLERIA MINI */
+        .grid-opere {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            width: 100%;
+            max-width: 1000px;
+        }
+
+        .opera-box {
+            border: 1px solid #200;
+            padding: 20px;
+            background: #050505;
+        }
+
     </style>
 </head>
 <body>
 
-    <div id="start">
-        <h2>ENTRA NELL'ABISSO</h2>
-        <p style="color: #444; margin-top: 10px; letter-spacing: 2px;">(Clicca per risvegliare l'organo)</p>
-    </div>
-
-    <div id="heart-container">
-        <div class="organ">
-            <div class="vessel aorta"></div>
-            <div class="vessel vena"></div>
-        </div>
+    <div id="start-screen">
+        <h2 class="beat-effect">ENTRA NELL'ABISSO</h2>
+        <p style="color: #333; margin-top: 15px; letter-spacing: 2px;">(Clicca per risvegliare il battito)</p>
     </div>
 
     <nav>
@@ -119,35 +134,60 @@ HTML
     </nav>
 
     <section id="home">
-        <h1 style="color:#8b0000; font-size: 3rem; letter-spacing: 15px;">NOME ARTISTA</h1>
-        <p style="background: rgba(0,0,0,0.7); display: inline-block; padding: 10px;">Visioni Anatomiche Astratte</p>
+        <h1 class="beat-effect">NOME ARTISTA</h1>
+        <p style="letter-spacing: 5px; color: #444;">Arte Viscerale Astratta</p>
+    </section>
+
+    <section id="opere">
+        <h2 class="beat-effect">Abissi</h2>
+        <div class="grid-opere">
+            <div class="opera-box">
+                <p>OPERA I</p>
+                <p style="color: #444; font-size: 0.8rem;">Disponibile</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="poesie">
+        <h2 class="beat-effect">Echi</h2>
+        <div class="testo-artistico">
+            "Il vuoto non è silenzio.
+            È un battito che non vedi,
+            ma che muove ogni ombra
+            sulla tela della tua mente."
+        </div>
     </section>
 
     <script>
         let audioCtx;
-        function playBeat() {
+
+        function playHeartbeat() {
             if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
             const now = audioCtx.currentTime;
-            const stroke = (time, freq, vol) => {
+            
+            const stroke = (time, freq, vol, dur) => {
                 const osc = audioCtx.createOscillator();
                 const gain = audioCtx.createGain();
                 osc.type = 'sine';
                 osc.frequency.setValueAtTime(freq, time);
-                osc.frequency.exponentialRampToValueAtTime(0.01, time + 0.5);
+                osc.frequency.exponentialRampToValueAtTime(0.01, time + dur);
                 gain.gain.setValueAtTime(vol, time);
-                gain.gain.exponentialRampToValueAtTime(0.01, time + 0.5);
-                osc.connect(gain); gain.connect(audioCtx.destination);
-                osc.start(time); osc.stop(time + 0.5);
+                gain.gain.exponentialRampToValueAtTime(0.01, time + dur);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start(time);
+                osc.stop(time + dur);
             };
-            // Doppio battito cupo
-            stroke(now, 55, 0.8);
-            stroke(now + 0.25, 45, 0.6); 
+
+            // Battito "Tum-Tum" sincronizzato con l'animazione 1.2s
+            stroke(now, 55, 0.7, 0.4);      // Primo battito
+            stroke(now + 0.25, 45, 0.5, 0.5); // Secondo battito
         }
 
-        document.getElementById('start').addEventListener('click', function() {
+        document.getElementById('start-screen').addEventListener('click', function() {
             this.style.display = 'none';
-            playBeat();
-            setInterval(playBeat, 1200);
+            playHeartbeat();
+            setInterval(playHeartbeat, 1200);
         });
     </script>
 
