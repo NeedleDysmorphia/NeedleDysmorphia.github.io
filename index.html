@@ -3,147 +3,125 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio Artista | Astratto Horror</title>
+    <title>Portfolio Astratto Horror</title>
+
     <style>
-        /* STILE GENERALE */
+        /* RESET: serve per togliere i margini di default che rovinano tutto */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
-            background-color: #050505; /* Nero profondo */
-            color: #d1d1d1; /* Grigio chiaro */
-            font-family: 'Georgia', serif; /* Font più letterario per poesie e bio */
-            margin: 0;
-            line-height: 1.6;
+            background-color: #050505;
+            color: #d1d1d1;
+            font-family: 'Courier New', Courier, monospace;
+            scroll-behavior: smooth; /* Rende lo scorrimento tra sezioni fluido */
         }
 
-        /* MENU DI NAVIGAZIONE */
+        /* MENU FISSO IN ALTO */
         nav {
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            padding: 20px 0;
+            background: rgba(0, 0, 0, 0.95);
+            padding: 20px;
             text-align: center;
             z-index: 1000;
-            border-bottom: 1px solid #222;
+            border-bottom: 1px solid #330000;
         }
 
         nav a {
-            color: #8b0000; /* Rosso sangue */
+            color: #8b0000;
             text-decoration: none;
-            margin: 0 20px;
+            margin: 0 15px;
+            font-weight: bold;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 0.9rem;
-            transition: 0.3s;
-        }
-
-        nav a:hover {
-            color: #ff0000;
-            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+            font-size: 0.8rem;
         }
 
         /* SEZIONI */
         section {
-            padding: 100px 20px;
-            min-height: 80vh;
+            padding: 120px 20px; /* Spazio per non finire sotto il menu */
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
-            max-width: 1000px;
-            margin: 0 auto;
+            border-bottom: 1px solid #1a1a1a;
         }
 
-        h1, h2 {
-            color: #8b0000;
-            text-transform: uppercase;
-            letter-spacing: 5px;
-        }
+        h1, h2 { color: #8b0000; margin-bottom: 30px; letter-spacing: 5px; }
 
-        /* GALLERIA OPERE */
-        .grid-opere {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
+        /* GRIGLIA OPERE */
+        .container-opere {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
             width: 100%;
+            max-width: 1200px;
         }
 
-        .card-opera {
-            background: #111;
-            padding: 15px;
-            border: 1px solid #222;
+        .pezzo {
+            background: #000;
+            border: 1px solid #333;
+            padding: 10px;
+            width: 300px;
             text-align: center;
         }
 
-        .card-opera img {
+        .pezzo img {
             width: 100%;
             height: auto;
-            filter: grayscale(50%);
-            transition: 0.5s;
+            border-bottom: 1px solid #333;
+            margin-bottom: 10px;
         }
 
-        .card-opera img:hover {
-            filter: grayscale(0%);
-        }
+        .prezzo { color: #8b0000; font-weight: bold; margin: 10px 0; }
 
-        .btn-compra {
-            display: inline-block;
-            margin-top: 15px;
-            padding: 10px 20px;
-            background: #8b0000;
-            color: white;
-            text-decoration: none;
-            font-size: 0.8rem;
-        }
-
-        /* POESIE */
-        .poesia {
-            white-space: pre-line; /* Mantiene gli a capo delle poesie */
-            font-style: italic;
+        /* POESIE E BIO */
+        .testo-artistico {
+            max-width: 700px;
+            line-height: 1.8;
             text-align: center;
-            max-width: 600px;
-            margin-bottom: 50px;
-            border-left: 1px solid #8b0000;
-            padding-left: 20px;
+            white-space: pre-line; /* Fondamentale per le poesie! */
         }
     </style>
 </head>
 <body>
 
     <nav>
-        <a href="#home">Home</a>
-        <a href="#opere">Opere</a>
-        <a href="#poesie">Poesie</a>
-        <a href="#bio">Bio</a>
+        <a href="#home">Ingresso</a>
+        <a href="#opere">Abissi (Opere)</a>
+        <a href="#poesie">Echi (Poesie)</a>
+        <a href="#bio">L'Ombra (Bio)</a>
     </nav>
 
     <section id="home">
-        <h1>Nome Artista</h1>
-        <p>Visioni astratte dal profondo.</p>
+        <h1>NOME ARTISTA</h1>
+        <p>L'astrazione dell'orrore.</p>
     </section>
 
     <section id="opere">
-        <h2>Galleria Opere</h2>
-        <div class="grid-opere">
-            <div class="card-opera">
-                <img src="opera1.jpg" alt="Opera Astratta 1">
-                <p>Titolo Opera - 2024</p>
-                <a href="mailto:tua@email.com" class="btn-compra">Richiedi Acquisto</a>
+        <h2>OPERE DISPONIBILI</h2>
+        <div class="container-opere">
+            <div class="pezzo">
+                <img src="opera1.jpg" alt="Titolo">
+                <p>NOME OPERA</p>
+                <p class="prezzo">€ 00.00</p>
+                <a href="mailto:tua@email.com" style="color:white; font-size: 0.7rem;">CONTATTA PER ACQUISTO</a>
             </div>
-            </div>
+        </div>
     </section>
 
     <section id="poesie">
-        <h2>Sospiri nell'Ombra</h2>
-        <div class="poesia">
-            "Il nero non è assenza,
-            è un grembo che attende
-            di divorare la luce
-            e restituire l'incubo."
+        <h2>POESIE</h2>
+        <div class="testo-artistico">
+            Qui scriverai la tua prima poesia.
+            Basta andare a capo normalmente.
         </div>
     </section>
 
     <section id="bio">
-        <h2>L'Artista</h2>
-        <p>Qui puoi scrivere la tua storia, il tuo percorso nell'orrore astratto e cosa ti spinge a creare.</p>
+        <h2>BIOGRAFIA</h2>
+        <p class="testo-artistico">Qui racconterai chi sei.</p>
     </section>
 
 </body>
