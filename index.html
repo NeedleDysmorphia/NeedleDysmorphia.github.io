@@ -3,126 +3,174 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio Astratto Horror</title>
-
+    <title>NOME ARTISTA | Visioni Viscerali</title>
     <style>
-        /* RESET: serve per togliere i margini di default che rovinano tutto */
+        /* RESET BASE */
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
+        
         body {
-            background-color: #050505;
-            color: #d1d1d1;
+            background-color: #000000;
+            color: #b0b0b0;
             font-family: 'Courier New', Courier, monospace;
-            scroll-behavior: smooth; /* Rende lo scorrimento tra sezioni fluido */
+            scroll-behavior: smooth;
+            overflow-x: hidden;
         }
 
-        /* MENU FISSO IN ALTO */
+        /* CUORE CSS */
+        #heart-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .css-heart {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            background-color: #4a0000;
+            transform: rotate(-45deg);
+            /* L'animazione dura 1.2 secondi, come un battito lento */
+            animation: heartbeat 1.2s infinite;
+            box-shadow: 0 0 50px #220000;
+            opacity: 0.25;
+        }
+
+        .css-heart::before,
+        .css-heart::after {
+            content: "";
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            background-color: #4a0000;
+            border-radius: 50%;
+        }
+
+        .css-heart::before { top: -60px; left: 0; }
+        .css-heart::after { left: 60px; top: 0; }
+
+        @keyframes heartbeat {
+            0% { transform: rotate(-45deg) scale(1); }
+            10% { transform: rotate(-45deg) scale(1.15); }
+            20% { transform: rotate(-45deg) scale(1); }
+            30% { transform: rotate(-45deg) scale(1.1); }
+            40% { transform: rotate(-45deg) scale(1); }
+        }
+
+        /* INTERFACCIA */
         nav {
             position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            padding: 20px;
-            text-align: center;
-            z-index: 1000;
-            border-bottom: 1px solid #330000;
+            top: 0; width: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 25px; text-align: center;
+            z-index: 1000; border-bottom: 1px solid #330000;
         }
 
         nav a {
-            color: #8b0000;
-            text-decoration: none;
-            margin: 0 15px;
-            font-weight: bold;
-            text-transform: uppercase;
-            font-size: 0.8rem;
+            color: #660000; text-decoration: none; margin: 0 18px;
+            text-transform: uppercase; font-size: 0.8rem; letter-spacing: 3px;
+            font-weight: bold; transition: 0.4s;
         }
 
-        /* SEZIONI */
+        nav a:hover { color: #ff0000; text-shadow: 0 0 10px #ff0000; }
+
         section {
-            padding: 120px 20px; /* Spazio per non finire sotto il menu */
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            border-bottom: 1px solid #1a1a1a;
+            padding: 140px 20px; min-height: 100vh;
+            display: flex; flex-direction: column; align-items: center; text-align: center;
         }
 
-        h1, h2 { color: #8b0000; margin-bottom: 30px; letter-spacing: 5px; }
+        h1, h2 { color: #8b0000; letter-spacing: 10px; margin-bottom: 50px; text-transform: uppercase; }
 
-        /* GRIGLIA OPERE */
-        .container-opere {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-            width: 100%;
-            max-width: 1200px;
-        }
-
-        .pezzo {
-            background: #000;
-            border: 1px solid #333;
-            padding: 10px;
-            width: 300px;
-            text-align: center;
-        }
-
-        .pezzo img {
-            width: 100%;
-            height: auto;
-            border-bottom: 1px solid #333;
-            margin-bottom: 10px;
-        }
-
-        .prezzo { color: #8b0000; font-weight: bold; margin: 10px 0; }
-
-        /* POESIE E BIO */
         .testo-artistico {
-            max-width: 700px;
-            line-height: 1.8;
-            text-align: center;
-            white-space: pre-line; /* Fondamentale per le poesie! */
+            max-width: 750px; line-height: 2.2; white-space: pre-line;
+            font-style: italic; padding: 30px; background: rgba(0,0,0,0.6);
+        }
+
+        /* SCHERMO INIZIALE */
+        #audio-interaction {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #000; color: #8b0000;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            z-index: 2000; cursor: pointer;
         }
     </style>
 </head>
 <body>
 
+    <div id="audio-interaction">
+        <h2>ENTRA NELL'ABISSO</h2>
+        <p style="color: #444; font-size: 0.8rem; margin-top: 10px;">(Attiva il battito cardiaco)</p>
+    </div>
+
+    <div id="heart-container">
+        <div class="css-heart"></div>
+    </div>
+
     <nav>
         <a href="#home">Ingresso</a>
-        <a href="#opere">Abissi (Opere)</a>
-        <a href="#poesie">Echi (Poesie)</a>
-        <a href="#bio">L'Ombra (Bio)</a>
+        <a href="#opere">Abissi</a>
+        <a href="#poesie">Echi</a>
+        <a href="#bio">L'Ombra</a>
     </nav>
 
     <section id="home">
         <h1>NOME ARTISTA</h1>
-        <p>L'astrazione dell'orrore.</p>
+        <p>Arte Viscerale Astratta</p>
     </section>
 
     <section id="opere">
-        <h2>OPERE DISPONIBILI</h2>
-        <div class="container-opere">
-            <div class="pezzo">
-                <img src="opera1.jpg" alt="Titolo">
-                <p>NOME OPERA</p>
-                <p class="prezzo">€ 00.00</p>
-                <a href="mailto:tua@email.com" style="color:white; font-size: 0.7rem;">CONTATTA PER ACQUISTO</a>
-            </div>
-        </div>
+        <h2>Galleria</h2>
+        <p>Le opere appariranno qui.</p>
     </section>
 
     <section id="poesie">
-        <h2>POESIE</h2>
-        <div class="testo-artistico">
-            Qui scriverai la tua prima poesia.
-            Basta andare a capo normalmente.
-        </div>
+        <h2>Echi</h2>
+        <div class="testo-artistico">Scrivi qui le tue poesie.</div>
     </section>
 
     <section id="bio">
-        <h2>BIOGRAFIA</h2>
-        <p class="testo-artistico">Qui racconterai chi sei.</p>
+        <h2>L'Ombra</h2>
+        <div class="testo-artistico">La tua biografia.</div>
     </section>
+
+    <script>
+        const interactionScreen = document.getElementById('audio-interaction');
+        let audioCtx;
+
+        // Funzione per creare il suono del battito sinteticamente
+        function playHeartbeatSound() {
+            if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            
+            const playStroke = (time, freq, dur) => {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(freq, time);
+                osc.frequency.exponentialRampToValueAtTime(0.01, time + dur);
+                gain.gain.setValueAtTime(0.5, time);
+                gain.gain.exponentialRampToValueAtTime(0.01, time + dur);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start(time);
+                osc.stop(time + dur);
+            };
+
+            const now = audioCtx.currentTime;
+            // Doppio battito: "Tum-tum"
+            playStroke(now, 60, 0.15);      // Primo battito (frequenza bassa)
+            playStroke(now + 0.2, 50, 0.2); // Secondo battito (più profondo)
+        }
+
+        interactionScreen.addEventListener('click', function() {
+            interactionScreen.style.display = 'none';
+            // Avvia il loop del suono a tempo con l'animazione CSS (1.2 secondi)
+            playHeartbeatSound();
+            setInterval(playHeartbeatSound, 1200);
+        });
+    </script>
 
 </body>
 </html>
