@@ -1,114 +1,205 @@
-È frustrante quando il codice sembra perfetto ma lo schermo resta vuoto, ti capisco bene. Se non vedi il cuore e non senti il suono, i sospetti sono due: o un errore di "copia-incolla" o il browser che blocca lo script.
+Accetto la sfida. Creare un cuore che sembri "umano" e non una forma geometrica stilizzata (come il simbolo <3) usando solo il codice (CSS) è complesso, ma possibile lavorando sulle sfumature e sulle forme asimmetriche.
 
-Facciamo un'operazione di "chirurgia d'emergenza". Ti ho riscritto il codice in modo ancora più semplice e ho aggiunto una funzione di controllo visivo.
-Cosa devi fare:
+Ho riprogettato il cuore da zero. Invece di due cerchi perfetti, ho usato forme ellittiche e asimmetriche, sovrapposte e sfumate con colori cupi (rosso sangue scuro e nero), per dare l'idea di una massa organica, viscerale e indistinta che pulsa nello sfondo. Non è un disegno anatomico medico, ma evoca chiaramente un organo reale e non un simbolo.
 
-    Cancella tutto il contenuto attuale di index.html.
-
-    Incolla questo codice (ho reso il cuore più grande e il suono più forte per essere sicuri):
-
+Inoltre, ho mantenuto l'audio sintetico che si attiva al click, così il sito è completamente autonomo.
+Cancella tutto il contenuto di index.html e incolla questo codice:
 HTML
 
 <!DOCTYPE html>
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <title>TEST ARTISTA</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOME ARTISTA | Visioni Viscerali</title>
     <style>
-        body { background: #000; color: #8b0000; margin: 0; font-family: monospace; overflow: hidden; }
+        /* RESET BASE */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background-color: #000000;
+            color: #b0b0b0;
+            font-family: 'Courier New', Courier, monospace;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
 
-        /* IL CUORE - Deve apparire subito */
+        /* IL CUORE ORGANICO CSS */
         #heart-container {
             position: fixed;
-            top: 50%; left: 50%;
+            top: 50%;
+            left: 50%;
             transform: translate(-50%, -50%);
-            z-index: 10;
+            z-index: -1;
+            pointer-events: none;
+            /* L'animazione di pulsazione generale */
+            animation: heart-pulse 1.4s infinite ease-in-out;
+            opacity: 0.2; /* Soffuso nello sfondo */
         }
 
-        .css-heart {
+        /* Massa principale del cuore (ventricoli) */
+        .heart-viscera {
             position: relative;
-            width: 100px; height: 100px;
-            background: #600; /* Rosso scuro */
-            transform: rotate(-45deg);
-            animation: pulse 1.2s infinite;
+            width: 180px;
+            height: 220px;
+            background: radial-gradient(circle at 40% 40%, #550000 0%, #220000 60%, #050505 100%);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; /* Forma asimmetrica organica */
+            box-shadow: 0 0 50px #330000;
+            filter: blur(2px); /* Sfoca leggermente per unire le forme */
         }
 
-        .css-heart::before, .css-heart::after {
+        /* Parte superiore (atria/vasi sanguigni stilizzati) */
+        .heart-viscera::before {
             content: "";
             position: absolute;
-            width: 100px; height: 100px;
-            background: #600;
-            border-radius: 50%;
+            top: -40px;
+            left: 20px;
+            width: 140px;
+            height: 100px;
+            background: radial-gradient(circle at 50% 50%, #440000 0%, #150000 70%, #000 100%);
+            border-radius: 50% 50% 0 0;
+            filter: blur(1px);
         }
-        .css-heart::before { top: -50px; left: 0; }
-        .css-heart::after { left: 50px; top: 0; }
 
-        @keyframes pulse {
-            0% { scale: 1; }
-            15% { scale: 1.3; }
-            30% { scale: 1; }
-            45% { scale: 1.15; }
-            100% { scale: 1; }
+        /* Un tocco di ombra extra per dare profondità organica */
+        .heart-viscera::after {
+            content: "";
+            position: absolute;
+            top: 40px;
+            left: 30px;
+            width: 120px;
+            height: 150px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+            filter: blur(10px);
+        }
+
+        /* ANIMAZIONE DEL BATTITO ORGANICO */
+        @keyframes heart-pulse {
+            0% { transform: translate(-50%, -50%) scale(1); filter: brightness(100%); }
+            10% { transform: translate(-50%, -50%) scale(1.1); filter: brightness(120%); }
+            20% { transform: translate(-50%, -50%) scale(1.05); filter: brightness(110%); }
+            30% { transform: translate(-50%, -50%) scale(1.15); filter: brightness(130%); }
+            100% { transform: translate(-50%, -50%) scale(1); filter: brightness(100%); }
+        }
+
+        /* INTERFACCIA */
+        nav {
+            position: fixed;
+            top: 0; width: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 25px; text-align: center;
+            z-index: 1000; border-bottom: 1px solid #330000;
+        }
+
+        nav a {
+            color: #660000; text-decoration: none; margin: 0 18px;
+            text-transform: uppercase; font-size: 0.8rem; letter-spacing: 3px;
+            font-weight: bold; transition: 0.4s;
+        }
+
+        nav a:hover { color: #ff0000; text-shadow: 0 0 10px #ff0000; }
+
+        section {
+            padding: 140px 20px; min-height: 100vh;
+            display: flex; flex-direction: column; align-items: center; text-align: center;
+        }
+
+        h1, h2 { color: #8b0000; letter-spacing: 10px; margin-bottom: 50px; text-transform: uppercase; }
+
+        .testo-artistico {
+            max-width: 750px; line-height: 2.2; white-space: pre-line;
+            font-style: italic; padding: 30px; background: rgba(0,0,0,0.6);
+            border: 1px solid #1a1a1a;
         }
 
         /* SCHERMO INIZIALE */
-        #overlay {
+        #audio-interaction {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: #000;
-            display: flex; justify-content: center; align-items: center;
-            z-index: 100; cursor: pointer;
+            background: #000; color: #8b0000;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            z-index: 2000; cursor: pointer;
+            text-align: center;
         }
     </style>
 </head>
 <body>
 
-    <div id="overlay">
-        <h1>CLICCA PER ATTIVARE IL BATTITO</h1>
+    <div id="audio-interaction">
+        <h2>ENTRA NELL'ABISSO</h2>
+        <p style="color: #444; font-size: 0.8rem; margin-top: 15px; letter-spacing: 2px;">
+            (Clicca per attivare il cuore)
+        </p>
     </div>
 
     <div id="heart-container">
-        <div class="css-heart"></div>
+        <div class="heart-viscera"></div>
     </div>
 
-    <script>
-        const overlay = document.getElementById('overlay');
-        
-        // Funzione sonora corazzata
-        function startHeartbeat() {
-            const ctx = new (window.AudioContext || window.webkitAudioContext)();
-            
-            function beat() {
-                const now = ctx.currentTime;
-                const osc = ctx.createOscillator();
-                const gain = ctx.createGain();
-                
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(50, now); // Frequenza molto bassa
-                osc.frequency.exponentialRampToValueAtTime(0.01, now + 0.5);
-                
-                gain.gain.setValueAtTime(1, now); // Volume al massimo
-                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.5);
-                
-                osc.connect(gain);
-                gain.connect(ctx.destination);
-                
-                osc.start();
-                osc.stop(now + 0.5);
-            }
+    <nav>
+        <a href="#home">Ingresso</a>
+        <a href="#opere">Abissi</a>
+        <a href="#poesie">Echi</a>
+        <a href="#bio">L'Ombra</a>
+    </nav>
 
-            // Batte ogni 1.2 secondi
-            setInterval(() => {
-                beat(); // Primo colpo
-                setTimeout(beat, 200); // Secondo colpo (tum-tum)
-            }, 1200);
+    <section id="home">
+        <h1>NOME ARTISTA</h1>
+        <p>Arte Viscerale Astratta Horror</p>
+    </section>
+
+    <section id="opere">
+        <h2>Abissi (Opere)</h2>
+        <p>(Le tue opere qui)</p>
+    </section>
+
+    <section id="poesie">
+        <h2>Echi (Poesie)</h2>
+        <div class="testo-artistico">Scrivi qui le tue poesie.</div>
+    </section>
+
+    <section id="bio">
+        <h2>L'Ombra (Bio)</h2>
+        <div class="testo-artistico">La tua biografia.</div>
+    </section>
+
+    <script>
+        const interactionScreen = document.getElementById('audio-interaction');
+        let audioCtx;
+
+        // Funzione sonora sintetica per il battito (suono basso e cupo)
+        function playBeat() {
+            if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const now = audioCtx.currentTime;
+            
+            const stroke = (time, freq, dur, vol) => {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(freq, time);
+                osc.frequency.exponentialRampToValueAtTime(0.01, time + dur);
+                gain.gain.setValueAtTime(vol, time);
+                gain.gain.exponentialRampToValueAtTime(0.01, time + dur);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start(time);
+                osc.stop(time + dur);
+            };
+
+            // Doppio battito "Tum-tum" sincrono con l'animazione (1.4s)
+            stroke(now, 55, 0.3, 0.5);      // Primo colpo
+            stroke(now + 0.25, 45, 0.4, 0.4); // Secondo colpo
         }
 
-        overlay.addEventListener('click', () => {
-            overlay.style.display = 'none';
-            startHeartbeat();
-            console.log("Audio attivato");
+        interactionScreen.addEventListener('click', () => {
+            interactionScreen.style.display = 'none';
+            // Avvia il loop sonoro
+            playBeat();
+            // 1400ms = 1.4s (tempo dell'animazione CSS)
+            setInterval(playBeat, 1400);
         });
     </script>
+
 </body>
 </html>
