@@ -205,35 +205,56 @@
     </section>
 
     <script>
-        let audioCtx;
+let audioCtx;
+    const startScreen = document.getElementById('start-screen');
 
-        function playHeartbeat() {
-            if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            const now = audioCtx.currentTime;
-            
-            const stroke = (time, freq, vol, dur) => {
-                const osc = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(freq, time);
-                osc.frequency.exponentialRampToValueAtTime(0.01, time + dur);
-                gain.gain.setValueAtTime(vol, time);
-                gain.gain.exponentialRampToValueAtTime(0.01, time + dur);
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
-                osc.start(time);
-                osc.stop(time + dur);
-            };
+    // Funzione che genera il suono del battito (quella che avevi già)
+    function playHeartbeat() {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (audioCtx.state === 'suspended') audioCtx.resume(); // Necessario per riattivarlo dopo il primo clic
+        
+        const now = audioCtx.currentTime;
+        const stroke = (time, freq, vol, dur) => {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(freq, time);
+            osc.frequency.exponentialRampToValueAtTime(0.01, time + dur);
+            gain.gain.setValueAtTime(vol, time);
+            gain.gain.exponentialRampToValueAtTime(0.01, time + dur);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start(time);
+            osc.stop(time + dur);
+        };
 
-            stroke(now, 50, 0.8, 0.4);      
-            stroke(now + 0.25, 40, 0.6, 0.5); 
-        }
+        stroke(now, 50, 0.8, 0.4);      
+        stroke(now + 0.25, 40, 0.6, 0.5); 
+    }
 
-        document.getElementById('start-screen').addEventListener('click', function() {
+    // Funzione per avviare il loop
+    function initHeartbeat() {
+        playHeartbeat();
+        setInterval(playHeartbeat, 1300);
+    }
+
+    // CONTROLLO SESSIONE
+    if (sessionStorage.getItem('hasEntered')) {
+        // Se è già entrato, nascondiamo subito lo start screen
+        startScreen.style.display = 'none';
+        
+        // Aspettiamo un clic qualsiasi sulla pagina per far ripartire il loop
+        document.body.addEventListener('click', function() {
+            initHeartbeat();
+        }, { once: true });
+    } else {
+        // Se è la prima volta, aspettiamo il clic sullo start screen
+        startScreen.addEventListener('click', function() {
+            sessionStorage.setItem('hasEntered', 'true');
             this.style.display = 'none';
-            playHeartbeat();
-            setInterval(playHeartbeat, 1300);
+            initHeartbeat();
         });
+    }
     </script>
 
 </body>
