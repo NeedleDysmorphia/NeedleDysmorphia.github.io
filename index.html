@@ -4,7 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>THEY FED ME LIES; I GAVE THEM ART | Gallery</title>
-    <style>
+<style>
+    /* --- AGGIUNGI QUESTO ALL'INIZIO DEL TUO <STYLE> --- */
+:root {
+    /* Bisturi SVG incorporato: punta rossa, lama grigia, manico scuro */
+    --bisturi-cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath d='M2 30 L8 24 L26 6 L30 2 L28 0 L24 4 L6 22 L0 28 Z' fill='%23333'/%3E%3Cpath d='M24 4 L30 2 L28 0 Z' fill='%238b0000'/%3E%3Cpath d='M6 22 L24 4 L22 2 L4 20 Z' fill='%23888'/%3E%3C/svg%3E") 0 32, auto;
+}
         .side-band-left, .side-band-right {
     position: fixed;
     top: 0;
@@ -23,7 +28,7 @@
     right: 0;
 }
         /* RESET BASE */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: var(--bisturi-cursor) !important; }
         
         body {
             background-color: #000;
@@ -44,6 +49,7 @@
         .pulsate {
             animation: text-pulse 1.3s infinite ease-in-out;
             display: inline-block;
+            cursor: var(--bisturi-cursor), pointer !important;
         }
         .background-overlay {
             position: fixed; /* L'immagine sta ferma o si muove? Se vuoi che scorra via, usa 'absolute' */
@@ -90,6 +96,7 @@
             display: inline-block;
             line-height: 40px;
             vertical-align: middle;
+            cursor: var(--bisturi-cursor), pointer !important;
         }
         nav a:last-child {
             border-right: none;
@@ -145,7 +152,7 @@
             justify-content: center;
             align-items: center;
             z-index: 2000;
-            cursor: pointer;
+            cursor: var(--bisturi-cursor), pointer !important;
         }
 
         .grid-opere {
@@ -161,6 +168,7 @@
             padding: 40px;
             background: #050505;
             transition: 0.3s;
+            cursor: var(--bisturi-cursor), pointer !important;
         }
 
         .box-opera:hover {
@@ -198,13 +206,6 @@
                 opacity: 0;
                 transform: translate(-50%, -50%) scale(1); /* Si espande fino a 1 volta la dimensione definita in JS */
             }
-        }
-        body {
-            cursor: url('pointer.png'), auto;
-        }
-       /* Quando passi sopra i link, il cursore può cambiare o restare lo stesso */
-        a, button {
-            cursor: url('pointer.png'), pointer;
         }
         /* Lo stile dei pixel di sangue */
         .blood-pixel {
