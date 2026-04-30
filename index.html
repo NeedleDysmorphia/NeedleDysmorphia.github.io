@@ -218,8 +218,15 @@
             box-shadow: 0 0 3px #600000;
         }
         a, button {
-            cursor: url('pointer.png') 16 0, pointer;
+            cursor: url('pointer.png') 16 2, pointer;
         }
+        .blood-pixel {
+    position: fixed;
+    margin: 0; /* Evita spostamenti indesiderati */
+    padding: 0;
+    transform: translate(-50%, -50%); /* Centra il pixel sul punto esatto */
+    /* ... resto dello stile */
+}
     </style>
 </head>
 <body>
