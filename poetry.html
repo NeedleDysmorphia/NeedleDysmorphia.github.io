@@ -166,10 +166,43 @@
         .box-opera:hover {
             border-color: #400;
         }
+                /* Contenitore per le onde (opzionale, ma aiuta a gestire lo z-index) */
+        .ripple-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none; /* Fondamentale: non deve bloccare i clic sui link */
+            z-index: 9999; /* Sopra tutto, tranne forse il menu se preferisci */
+            overflow: hidden;
+        }
 
+        /* L'elemento onda singolo */
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background-color: rgba(139, 0, 0, 0.7); /* Rosso scuro cupo, semi-trasparente */
+            transform: translate(-50%, -50%) scale(0); /* Parte centrata e invisibile */
+            animation: ripple-animation 1s ease-out; /* Durata e tipo di animazione */
+            pointer-events: none;
+        }
+
+        /* L'animazione keyframes */
+        @keyframes ripple-animation {
+            from {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(0);
+            }
+            to {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(1); /* Si espande fino a 1 volta la dimensione definita in JS */
+            }
+        }
     </style>
 </head>
 <body>
+    <div class="ripple-container"></div>
     <div class="background-overlay"></div>
     <div class="side-band-left"></div>
     <div class="side-band-right"></div>
@@ -184,4 +217,40 @@
             Insert your verses here.
         </div>
     </section>
+        <script>
+            // --- EFFETTO ONDE ROSSE AL CLIC ---
+        document.addEventListener('click', function(e) {
+            // 1. Trova il contenitore delle onde
+            const container = document.querySelector('.ripple-container');
+            if (!container) return; // Sicurezza se il container non esiste
+
+            // 2. Crea l'elemento div per l'onda
+            const ripple = document.createElement('div');
+            ripple.classList.add('ripple');
+
+            // 3. Calcola la posizione del clic rispetto alla finestra (viewport)
+            // Usiamo e.clientX e e.clientY perché il container è in position: fixed
+            const x = e.clientX;
+            const y = e.clientY;
+
+            // 4. Imposta la posizione dell'onda
+            ripple.style.left = `${x}px`;
+            ripple.style.top = `${y}px`;
+
+            // 5. Imposta la dimensione massima dell'onda (es. 300px)
+            // Puoi aumentare o diminuire questo valore per onde più grandi o più piccole
+            const size = 300; 
+            ripple.style.width = `${size}px`;
+            ripple.style.height = `${size}px`;
+
+            // 6. Aggiunge l'onda al container
+            container.appendChild(ripple);
+
+            // 7. Rimuove l'elemento dal DOM dopo che l'animazione è finita (1 secondo)
+            // Questo è fondamentale per non appesantire il sito con migliaia di div vuoti
+            setTimeout(() => {
+                ripple.remove();
+            }, 1000); // Deve corrispondere alla durata dell'animazione CSS
+        });
+    </script>
 </body>
