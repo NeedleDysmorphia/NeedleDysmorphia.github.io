@@ -358,9 +358,9 @@ function createBloodDrop() {
     pixel.classList.add('blood-pixel');
     
     // Posizionamento casuale vicino alla punta delle dita
-    const jitterX = (Math.random() - 0.5) * 6; 
-    pixel.style.left = (mouseX + 16 + jitterX) + 'px';
-    pixel.style.top = (mouseY + 30) + 'px';
+    const jitterX = (Math.random() - 0.5) * 4; 
+    pixel.style.left = (mouseX + 5 + jitterX) + 'px';
+    pixel.style.top = (mouseY + 28) + 'px';
     
     document.body.appendChild(pixel);
 
