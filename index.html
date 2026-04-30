@@ -217,6 +217,13 @@
             z-index: 10000;
             box-shadow: 0 0 3px #600000;
         }
+        body {
+            /* 16 0 significa: centrato orizzontalmente (16) e in cima verticalmente (0) */
+            cursor: url('mano.png') 16 0, auto;
+        }
+        a, button {
+            cursor: url('mano.png') 16 0, pointer;
+        }
     </style>
 </head>
 <body>
@@ -355,9 +362,9 @@ function createBloodDrop() {
     pixel.classList.add('blood-pixel');
     
     // Posizionamento casuale vicino alla punta delle dita
-    const jitterX = (Math.random() - 0.5) * 8; 
-    pixel.style.left = (mouseX + 10 + jitterX) + 'px';
-    pixel.style.top = (mouseY + 25) + 'px';
+    const jitterX = (Math.random() - 0.5) * 6; 
+    pixel.style.left = (mouseX + 16 + jitterX) + 'px';
+    pixel.style.top = (mouseY + 30) + 'px';
     
     document.body.appendChild(pixel);
 
