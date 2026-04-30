@@ -199,6 +199,20 @@
                 transform: translate(-50%, -50%) scale(1); /* Si espande fino a 1 volta la dimensione definita in JS */
             }
         }
+        body {
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><path d="M10 20l-2-2 2-8 2-2 2 2 2-2 2 2 2-2 2 2-2 8-2 2v6h-4v-6z" fill="white" stroke="black" stroke-width="1"/></svg>'), auto;
+        }
+
+        /* Stile per i pixel di sangue che cadono */
+        .blood-pixel {
+            position: fixed;
+            width: 3px;
+            height: 3px;
+            background-color: #8b0000; /* Rosso scuro */
+            pointer-events: none;
+            z-index: 10000;
+            box-shadow: 0 0 2px #ff0000;
+        }
     </style>
 </head>
 <body>
@@ -256,5 +270,45 @@
                 ripple.remove();
             }, 1000); // Deve corrispondere alla durata dell'animazione CSS
         });
+                // --- EFFETTO PIXEL DI SANGUE DAL CURSORE ---
+        let mouseX = 0;
+        let mouseY = 0;
+
+        // Traccia la posizione del mouse
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        function createBloodDrop() {
+            const pixel = document.createElement('div');
+            pixel.classList.add('blood-pixel');
+            
+            // Posiziona il pixel esattamente sulla punta della mano (regola i px se serve)
+            pixel.style.left = (mouseX + 2) + 'px';
+            pixel.style.top = (mouseY + 20) + 'px';
+            
+            document.body.appendChild(pixel);
+
+            // Animazione di caduta
+            let pos = mouseY + 20;
+            let opacity = 1;
+            const fallSpeed = 1 + Math.random() * 3;
+
+            const interval = setInterval(() => {
+                pos += fallSpeed;
+                opacity -= 0.02;
+                pixel.style.top = pos + 'px';
+                pixel.style.opacity = opacity;
+
+                if (opacity <= 0) {
+                    clearInterval(interval);
+                    pixel.remove();
+                }
+            }, 20);
+        }
+
+        // Genera un pixel di sangue ogni 100ms (regola per più o meno sangue)
+        setInterval(createBloodDrop, 100);
     </script>
 </body>
