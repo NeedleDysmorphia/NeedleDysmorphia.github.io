@@ -4,15 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>THEY FED ME LIES; I GAVE THEM ART | Gallery</title>
-    <style>
+<style>
+    /* --- AGGIUNGI QUESTO ALL'INIZIO DEL TUO <STYLE> --- */
+:root {
+    /* Bisturi SVG incorporato: punta rossa, lama grigia, manico scuro */
+    --bisturi-cursor: url("pointer.png") 20 2, auto;
+}
         .side-band-left, .side-band-right {
     position: fixed;
     top: 0;
     width: 60px; /* Spessore della banda */
     height: 200vh;
-    background-color: #8b0000; /* Il tuo rosso sangue */
+    background-color: #8b000081; /* Il tuo rosso sangue */
     z-index: 998; /* Sotto il menu e lo start screen, ma sopra le sezioni */
-    box-shadow: 0 0 15px rgba(139, 0, 0, 0.596); /* Effetto alone rosso */
+    box-shadow: 0 0 15px rgba(139, 0, 0, 0.6); /* Effetto alone rosso */
 }
 
 .side-band-left {
@@ -23,7 +28,7 @@
     right: 0;
 }
         /* RESET BASE */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: var(--bisturi-cursor) !important; }
         
         body {
             background-color: #000;
@@ -44,6 +49,7 @@
         .pulsate {
             animation: text-pulse 1.3s infinite ease-in-out;
             display: inline-block;
+            cursor: var(--bisturi-cursor), pointer !important;
         }
         .background-overlay {
             position: fixed; /* L'immagine sta ferma o si muove? Se vuoi che scorra via, usa 'absolute' */
@@ -90,6 +96,7 @@
             display: inline-block;
             line-height: 40px;
             vertical-align: middle;
+            cursor: var(--bisturi-cursor), pointer !important;
         }
         nav a:last-child {
             border-right: none;
@@ -145,7 +152,7 @@
             justify-content: center;
             align-items: center;
             z-index: 2000;
-            cursor: pointer;
+            cursor: var(--bisturi-cursor), pointer !important;
         }
 
         .grid-opere {
@@ -161,12 +168,13 @@
             padding: 40px;
             background: #050505;
             transition: 0.3s;
+            cursor: var(--bisturi-cursor), pointer !important;
         }
 
         .box-opera:hover {
             border-color: #400;
         }
-                /* Contenitore per le onde (opzionale, ma aiuta a gestire lo z-index) */
+        /* Contenitore per le onde (opzionale, ma aiuta a gestire lo z-index) */
         .ripple-container {
             position: fixed;
             top: 0;
@@ -209,6 +217,16 @@
             z-index: 10000;
             box-shadow: 0 0 3px #600000;
         }
+        a, button {
+            cursor: url('pointer.png') 16 2, pointer;
+        }
+        .blood-pixel {
+    position: fixed;
+    margin: 0; /* Evita spostamenti indesiderati */
+    padding: 0;
+    transform: translate(-50%, -50%); /* Centra il pixel sul punto esatto */
+    /* ... resto dello stile */
+}
     </style>
 </head>
 <body>
@@ -231,7 +249,7 @@
             </div>
         </div>
     </section>
-        <script>
+       <script>
             // --- EFFETTO ONDE ROSSE AL CLIC ---
         document.addEventListener('click', function(e) {
             // 1. Trova il contenitore delle onde
@@ -266,7 +284,7 @@
                 ripple.remove();
             }, 1000); // Deve corrispondere alla durata dell'animazione CSS
         });
-let mouseX = 0;
+ let mouseX = 0;
 let mouseY = 0;
 
 // 1. Aggiorna le coordinate del mouse costantemente
@@ -279,16 +297,17 @@ document.addEventListener('mousemove', (e) => {
 function createBloodDrop() {
     const pixel = document.createElement('div');
     pixel.classList.add('blood-pixel');
-    
+    let offsetX=-14;
+    let offsetY=35;
     // Posizionamento casuale vicino alla punta delle dita
-    const jitterX = (Math.random() - 0.5) * 8; 
-    pixel.style.left = (mouseX + 10 + jitterX) + 'px';
-    pixel.style.top = (mouseY + 25) + 'px';
+    const jitterX = (Math.random() - 0.5) * 4; 
+    pixel.style.left = (mouseX + offsetX + jitterX) + 'px';
+    pixel.style.top = (mouseY + offsetY) + 'px';
     
     document.body.appendChild(pixel);
 
-    let pos = mouseY + 25;
-    let horizontalPos = mouseX + 10 + jitterX;
+    let pos = mouseY + offsetY;
+    let horizontalPos = mouseX + offsetX + jitterX;
     let opacity = 1;
     const fallSpeed = 2 + Math.random() * 2; // Velocità di caduta variabile
     const sideDrift = (Math.random() - 0.5) * 1; // Oscilla mentre cade
