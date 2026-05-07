@@ -363,8 +363,8 @@ document.addEventListener('mousemove', (e) => {
 function createBloodDrop() {
     const pixel = document.createElement('div');
     pixel.classList.add('blood-pixel');
-    let offsetX=-15;
-    let offsetY=60;
+    let offsetX=-14;
+    let offsetY=45;
     // Posizionamento casuale vicino alla punta delle dita
     const jitterX = (Math.random() - 0.5) * 4; 
     pixel.style.left = (mouseX + offsetX + jitterX) + 'px';
