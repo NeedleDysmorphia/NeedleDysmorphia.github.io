@@ -1,11 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css"> <link rel="icon" type="image/jpg" href="background.jpg">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>THEY FED ME LIES; I GAVE THEM ART | Gallery</title>
 <style>
+    /* Regole per schermi piccoli (Smartphone) */
+@media (max-width: 768px) {
+    .bio-box {
+        width: 90%; /* La cornice occupa quasi tutta la larghezza */
+        margin: 10px auto;
+        padding: 15px;
+    }
+
+    .bio-text {
+        font-size: 14px; /* Riduciamo un po' il font per farlo stare nello schermo */
+    }
+
+    nav a {
+        display: block; /* Mette i link del menu uno sotto l'altro invece che affiancati */
+        margin: 10px 0;
+        text-align: center;
+    }
+}
     /* --- AGGIUNGI QUESTO ALL'INIZIO DEL TUO <STYLE> --- */
 :root {
     /* Bisturi SVG incorporato: punta rossa, lama grigia, manico scuro */
@@ -297,6 +316,19 @@
     </section>
 
     <script>
+        // Rileva se l'utente è su un dispositivo touch
+const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+if (!isTouchDevice) {
+    // Qui metti tutto il tuo codice attuale per il mouse (setInterval, ecc.)
+} else {
+    // Su mobile, facciamo uscire il sangue solo al "Touch"
+    document.addEventListener('touchstart', function(e) {
+        mouseX = e.touches[0].clientX;
+        mouseY = e.touches[0].clientY;
+        for(let i=0; i<5; i++) createBloodDrop(); // Esplosione di sangue al tocco
+    });
+}
         let audioCtx;
         const startScreen = document.getElementById('start-screen');
 
